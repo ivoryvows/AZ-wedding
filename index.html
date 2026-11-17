@@ -388,9 +388,7 @@ body.site-open .page-dots {
         0 0 7px 2px rgba(224,184,105,.65);
 }
 
-/* =================================
-   PAGE 2 - THREE PART SCROLL
-================================= */
+/* PAGE 2 - THREE PART SCROLL */
 
 .scroll-section {
     position: relative;
@@ -438,9 +436,6 @@ body.site-open .page-dots {
 .scroll-composition {
     --spread: 0px;
 
-    /* EXTRA CLOSED OVERLAP */
-    --join: clamp(28px, 10vw, 45px);
-
     position: absolute;
     left: 50%;
     top: 50%;
@@ -452,7 +447,7 @@ body.site-open .page-dots {
     z-index: 2;
 }
 
-/* MIDDLE MESSAGE - SAME SIZE */
+/* MIDDLE MESSAGE */
 
 .scroll-middle {
     position: absolute;
@@ -476,7 +471,7 @@ body.site-open .page-dots {
     transform: translateY(-50%);
 }
 
-/* TOP ROLL - MUCH BIGGER */
+/* TOP ROLL - MEETS CENTER, MOVES UP */
 
 .scroll-top {
     position: absolute;
@@ -487,14 +482,15 @@ body.site-open .page-dots {
     height: auto;
     z-index: 3;
 
+    /* CLOSED: BOTTOM EDGE AT CENTER */
     transform: translateY(
-        calc(-100% + var(--join) - var(--spread))
+        calc(-100% - var(--spread))
     );
 
     will-change: transform;
 }
 
-/* BOTTOM ROLL - MUCH BIGGER */
+/* BOTTOM ROLL - MEETS CENTER, MOVES DOWN */
 
 .scroll-bottom {
     position: absolute;
@@ -505,18 +501,17 @@ body.site-open .page-dots {
     height: auto;
     z-index: 3;
 
-    transform: translateY(
-        calc(var(--spread) - var(--join))
-    );
+    /* CLOSED: TOP EDGE AT CENTER */
+    transform: translateY(var(--spread));
 
     will-change: transform;
 }
 
-/* SCROLL INSTRUCTION */
+/* SCROLL INSTRUCTION - DIRECTLY BELOW CLOSED SCROLL */
 
 .scroll-hint {
     position: absolute;
-    top: 83%;
+    top: calc(50% + min(21.9vw, 124px) + 18px);
     left: 50%;
     transform: translateX(-50%);
     z-index: 5;
@@ -540,7 +535,8 @@ body.site-open .page-dots {
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
 
-    transition: opacity .3s ease;
+    opacity: 1;
+    transition: opacity .25s ease;
     animation: hintBreathe 2s ease-in-out infinite;
 }
 
@@ -567,7 +563,7 @@ body.site-open .page-dots {
     }
 
     .scroll-hint {
-        top: 83%;
+        top: calc(50% + 21.9vw + 18px);
         font-size: 9px;
         letter-spacing: 2.5px;
         padding: 9px 13px;
@@ -828,8 +824,10 @@ function updateScrollDesign() {
         currentSpread + "px"
     );
 
+    /* HIDE INSTRUCTION AS SOON AS SCROLL STARTS */
+
     scrollHint.style.opacity =
-        progress > 0.015 ? "0" : "1";
+        progress > 0.002 ? "0" : "1";
 
     const activePage =
         currentY >= start - 10 ? 1 : 0;
