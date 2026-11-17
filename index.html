@@ -75,39 +75,39 @@ body.site-open {
     justify-content: center;
     text-align: center;
     gap: clamp(5px, 1.2vh, 12px);
-    transform: translateY(5vh);
+    transform: translateY(7vh);
 }
 
 .intro-line {
     opacity: 0;
     transform: translateY(18px);
     filter: blur(4px);
-    color: #704b2e;
-    text-shadow: 0 1px 5px rgba(255,245,225,.55);
+    color: #bd9147;
+    text-shadow: 0 1px 5px rgba(255,245,225,.65);
 }
 
 .bismillah {
     font-family: 'Amiri', serif;
-    font-size: clamp(25px, 5.5vw, 39px);
+    font-size: clamp(21px, 4.5vw, 32px);
     font-weight: 400;
-    color: #805b37;
+    color: #bd9147;
     direction: rtl;
     line-height: 1.7;
 }
 
 .verse {
     font-family: 'EB Garamond', serif;
-    font-size: clamp(18px, 4vw, 25px);
+    font-size: clamp(16px, 3.5vw, 21px);
     font-style: italic;
     letter-spacing: .6px;
-    color: #69472e;
+    color: #bd9147;
 }
 
 .families {
     font-family: 'Marcellus', serif;
     font-size: clamp(11px, 2.7vw, 15px);
     letter-spacing: 4px;
-    color: #805b37;
+    color: #bd9147;
     margin-top: 5px;
 }
 
@@ -116,15 +116,15 @@ body.site-open {
     font-size: clamp(39px, 8.5vw, 65px);
     font-weight: 400;
     line-height: 1.12;
-    color: #59351f;
-    text-shadow: 0 1px 2px rgba(255,245,225,.65);
+    color: #bd9147;
+    text-shadow: 0 1px 3px rgba(255,245,225,.7);
 }
 
 .ampersand {
     font-family: 'EB Garamond', serif;
     font-size: clamp(23px, 5vw, 34px);
     font-style: italic;
-    color: #805b37;
+    color: #bd9147;
 }
 
 .request {
@@ -132,7 +132,7 @@ body.site-open {
     font-size: clamp(17px, 3.8vw, 23px);
     line-height: 1.4;
     max-width: 450px;
-    color: #69472e;
+    color: #bd9147;
     margin-top: 5px;
 }
 
@@ -304,7 +304,7 @@ body.site-open {
     to { transform: rotateY(100deg); }
 }
 
-/* TAP */
+/* TAP TO OPEN */
 
 .tap-area {
     position: absolute;
@@ -316,6 +316,7 @@ body.site-open {
     padding-bottom: 9vh;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
+    transition: opacity .4s ease, visibility .4s ease;
 }
 
 .tap-text {
@@ -333,11 +334,9 @@ body.site-open {
 }
 
 .opening .tap-area {
-    pointer-events: none;
-}
-
-.opening .tap-text {
     opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
 }
 
 /* =================================
@@ -449,83 +448,77 @@ body.site-open .page-dots {
 
 .scroll-composition {
     --spread: 0px;
+    --join: 8px;
 
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
 
-    /* SMALLER SCROLL SIZE */
+    /* MESSAGE BOX SIZE UNCHANGED */
     width: min(58vw, 330px);
 
     z-index: 2;
 }
 
-/* MIDDLE MESSAGE PAPER */
+/* MIDDLE MESSAGE PAPER - UNCHANGED SIZE */
 
 .scroll-middle {
     position: absolute;
     top: 50%;
     left: 0;
-
     width: 100%;
     height: calc(var(--spread) * 2);
-
     transform: translateY(-50%);
     overflow: hidden;
     z-index: 1;
-
     will-change: height;
 }
-
-/* KEEP ORIGINAL MESSAGE PROPORTIONS */
 
 .scroll-middle img {
     position: absolute;
     top: 50%;
     left: 0;
-
     display: block;
     width: 100%;
     height: auto;
-
     transform: translateY(-50%);
 }
 
-/* TOP ROLL - 1424 x 342 */
+/* TOP ROLL - MADE BIGGER */
 
 .scroll-top {
     position: absolute;
-    left: 0;
+    left: -6%;
     top: 50%;
-
     display: block;
-    width: 100%;
+    width: 112%;
     height: auto;
-
     z-index: 3;
 
-    /* BOTTOM EDGE CONNECTS TO MESSAGE */
-    transform: translateY(calc(-100% - var(--spread)));
+    /* OVERLAPS THE MIDDLE SLIGHTLY WHEN CLOSED */
+    transform: translateY(
+        calc(-100% + var(--join) - var(--spread))
+    );
 
     will-change: transform;
 }
 
-/* BOTTOM ROLL - 1370 x 369 */
+/* BOTTOM ROLL - MADE BIGGER */
 
 .scroll-bottom {
     position: absolute;
-    left: 0;
+    left: -6%;
     top: 50%;
-
     display: block;
-    width: 100%;
+    width: 112%;
     height: auto;
-
     z-index: 3;
 
-    /* TOP EDGE CONNECTS TO MESSAGE */
-    transform: translateY(var(--spread));
+    /* OVERLAPS THE MIDDLE SLIGHTLY WHEN CLOSED */
+    transform: translateY(
+        calc(var(--spread) - var(--join))
+    );
 
     will-change: transform;
 }
@@ -592,7 +585,7 @@ body.site-open .page-dots {
     }
 
     .intro-content {
-        transform: translateY(4vh);
+        transform: translateY(6vh);
     }
 }
 
@@ -637,7 +630,7 @@ body.site-open .page-dots {
             </div>
 
             <div class="intro-line request line-7">
-                request the honour of your presence
+                request the honour of your presence<br>
                 at their nikkah
             </div>
 
@@ -722,21 +715,15 @@ body.site-open .page-dots {
 
         <div class="scroll-composition" id="scrollComposition">
 
-            <!-- MIDDLE MESSAGE -->
-
             <div class="scroll-middle">
                 <img src="msg.PNG" alt="">
             </div>
-
-            <!-- TOP ROLL -->
 
             <img
                 src="top.PNG"
                 class="scroll-top"
                 alt=""
             >
-
-            <!-- BOTTOM ROLL -->
 
             <img
                 src="bottom.PNG"
@@ -840,8 +827,6 @@ function updateScrollDesign() {
 
     const currentY = window.scrollY;
 
-    /* PIN PAGE 2 WHILE REVEALING */
-
     page2.classList.remove(
         "is-pinned",
         "is-ended"
@@ -857,8 +842,6 @@ function updateScrollDesign() {
 
     }
 
-    /* REVEAL PROGRESS */
-
     let progress =
         (currentY - start) /
         Math.max(1, end - start);
@@ -870,8 +853,7 @@ function updateScrollDesign() {
        MESSAGE IMAGE RATIO:
        632 x 1242
 
-       Calculate the exact middle height
-       from the displayed composition width.
+       Message box size stays unchanged.
     */
 
     const compositionWidth =
@@ -880,18 +862,11 @@ function updateScrollDesign() {
     const messageFullHeight =
         compositionWidth * (1242 / 632);
 
-    /*
-       Half height is the maximum movement
-       of each roll from the centre.
-    */
-
     const maxSpread =
         messageFullHeight / 2;
 
     const currentSpread =
         maxSpread * progress;
-
-    /* APPLY SAME MOVEMENT TO BOTH ROLLS */
 
     scrollComposition.style.setProperty(
         "--spread",
