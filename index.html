@@ -1,1 +1,247 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Wedding</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #160e09;
+}
+
+.scene {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+}
+
+/* Background revealed after opening */
+
+.background {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* Gate panels */
+
+.gate {
+    position: absolute;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    z-index: 3;
+    overflow: hidden;
+}
+
+.gate img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: fill;
+}
+
+.left-gate {
+    left: 0;
+}
+
+.right-gate {
+    right: 0;
+}
+
+/* Complete brooch */
+
+.brooch-full,
+.brooch-half {
+    position: absolute;
+    width: clamp(130px, 28vw, 300px);
+    height: auto;
+    left: 50%;
+    top: 50%;
+    z-index: 5;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.brooch-half {
+    opacity: 0;
+}
+
+/* Clip brooch into two equal halves */
+
+.brooch-left {
+    clip-path: inset(0 50% 0 0);
+}
+
+.brooch-right {
+    clip-path: inset(0 0 0 50%);
+}
+
+/* Tap instruction */
+
+.tap-area {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 9vh;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.tap-text {
+    color: #fff0ce;
+    font-family: Georgia, serif;
+    font-size: 13px;
+    letter-spacing: 5px;
+    text-shadow: 0 0 12px #c99a4e;
+    animation: breathe 2s infinite;
+}
+
+@keyframes breathe {
+    0%, 100% { opacity: .55; }
+    50% { opacity: 1; }
+}
+
+/* Opening animation */
+
+.opening .brooch-full {
+    animation: broochGlow 1.2s ease forwards;
+}
+
+@keyframes broochGlow {
+    0% {
+        filter: drop-shadow(0 0 0 transparent);
+        opacity: 1;
+    }
+    45% {
+        filter:
+          drop-shadow(0 0 12px #fff0a0)
+          drop-shadow(0 0 28px #e9b54d)
+          drop-shadow(0 0 45px #ffd66e);
+        opacity: 1;
+    }
+    100% {
+        filter:
+          drop-shadow(0 0 18px #ffe5a0)
+          drop-shadow(0 0 35px #e8ad3f);
+        opacity: 0;
+    }
+}
+
+.opening .left-gate {
+    animation: openLeft 2.8s cubic-bezier(.65,0,.25,1) 1.2s forwards;
+}
+
+.opening .right-gate {
+    animation: openRight 2.8s cubic-bezier(.65,0,.25,1) 1.2s forwards;
+}
+
+@keyframes openLeft {
+    to { transform: translateX(-100%); }
+}
+
+@keyframes openRight {
+    to { transform: translateX(100%); }
+}
+
+/* Brooch halves travel with their gates */
+
+.opening .brooch-left {
+    animation: splitLeft 2.8s cubic-bezier(.65,0,.25,1) 1.2s forwards;
+}
+
+.opening .brooch-right {
+    animation: splitRight 2.8s cubic-bezier(.65,0,.25,1) 1.2s forwards;
+}
+
+@keyframes splitLeft {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%);
+    }
+    12% { opacity: 1; }
+    100% {
+        opacity: 1;
+        transform: translate(calc(-50% - 50vw), -50%);
+    }
+}
+
+@keyframes splitRight {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%);
+    }
+    12% { opacity: 1; }
+    100% {
+        opacity: 1;
+        transform: translate(calc(-50% + 50vw), -50%);
+    }
+}
+
+.opening .tap-area {
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="scene" id="scene">
+
+    <img class="background" src="background.JPG">
+
+    <div class="gate left-gate">
+        <img src="left-gate.PNG">
+    </div>
+
+    <div class="gate right-gate">
+        <img src="right-gate.PNG">
+    </div>
+
+    <img class="brooch-full" src="brooch.PNG">
+
+    <img class="brooch-half brooch-left" src="brooch.PNG">
+
+    <img class="brooch-half brooch-right" src="brooch.PNG">
+
+    <div class="tap-area" id="tapArea">
+        <div class="tap-text">TAP TO OPEN</div>
+    </div>
+
+</div>
+
+<script>
+const scene = document.getElementById("scene");
+const tapArea = document.getElementById("tapArea");
+
+let opened = false;
+
+tapArea.addEventListener("click", function() {
+    if (opened) return;
+
+    opened = true;
+    scene.classList.add("opening");
+});
+</script>
+
+</body>
+</html>
