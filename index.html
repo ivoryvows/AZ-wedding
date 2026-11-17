@@ -7,7 +7,7 @@
 
 <title>Ayzal Fatemah & Zubair Ali</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&family=Cinzel:wght@400;500;600&family=Noto+Naskh+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Allura&family=Marcellus&display=swap" rel="stylesheet">
 
 <style>
 * {
@@ -19,12 +19,13 @@
 html, body {
     width: 100%;
     min-height: 100%;
-    overflow-x: hidden;
-    overflow-y: hidden;
+    overflow: hidden;
     background: #100b08;
 }
 
-body.opened {
+html.site-open,
+body.site-open {
+    overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
@@ -42,8 +43,6 @@ body.opened {
     overflow: hidden;
     perspective: 1400px;
 }
-
-/* BACKGROUND */
 
 .background {
     position: absolute;
@@ -76,59 +75,64 @@ body.opened {
     justify-content: center;
     text-align: center;
     gap: clamp(5px, 1.2vh, 12px);
+    transform: translateY(5vh);
 }
 
 .intro-line {
     opacity: 0;
     transform: translateY(18px);
     filter: blur(4px);
-    color: #f4e4c4;
-    text-shadow: 0 2px 12px rgba(35,20,10,.65);
+    color: #704b2e;
+    text-shadow: 0 1px 5px rgba(255,245,225,.55);
 }
 
 .bismillah {
-    font-family: 'Noto Naskh Arabic', serif;
-    font-size: clamp(23px, 5vw, 37px);
-    color: #e8c78d;
+    font-family: 'Amiri', serif;
+    font-size: clamp(25px, 5.5vw, 39px);
+    font-weight: 400;
+    color: #805b37;
     direction: rtl;
-    line-height: 1.5;
+    line-height: 1.7;
 }
 
 .verse {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(16px, 3.8vw, 23px);
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(18px, 4vw, 25px);
     font-style: italic;
-    letter-spacing: .5px;
+    letter-spacing: .6px;
+    color: #69472e;
 }
 
 .families {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(10px, 2.5vw, 14px);
+    font-family: 'Marcellus', serif;
+    font-size: clamp(11px, 2.7vw, 15px);
     letter-spacing: 4px;
-    color: #d9bd8c;
-    margin-top: 4px;
+    color: #805b37;
+    margin-top: 5px;
 }
 
 .name {
-    font-family: 'Great Vibes', cursive;
-    font-size: clamp(43px, 10vw, 75px);
-    line-height: 1.15;
-    color: #e8c994;
+    font-family: 'Allura', cursive;
+    font-size: clamp(39px, 8.5vw, 65px);
+    font-weight: 400;
+    line-height: 1.12;
+    color: #59351f;
+    text-shadow: 0 1px 2px rgba(255,245,225,.65);
 }
 
 .ampersand {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(22px, 5vw, 32px);
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(23px, 5vw, 34px);
     font-style: italic;
-    color: #d6b37a;
+    color: #805b37;
 }
 
 .request {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(15px, 3.7vw, 21px);
-    line-height: 1.35;
+    font-family: 'EB Garamond', serif;
+    font-size: clamp(17px, 3.8vw, 23px);
+    line-height: 1.4;
     max-width: 450px;
-    color: #f0dfc0;
+    color: #69472e;
     margin-top: 5px;
 }
 
@@ -140,7 +144,6 @@ body.opened {
         transform: translateY(18px);
         filter: blur(4px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
@@ -338,12 +341,12 @@ body.opened {
 }
 
 /* =================================
-   LEFT SIDE - 6 PAGE DOTS
+   LEFT SIDE - PAGE DOTS
 ================================= */
 
 .page-dots {
     position: fixed;
-    left: 12px;
+    left: 8px;
     top: 50%;
     transform: translateY(-50%);
     z-index: 100;
@@ -352,7 +355,7 @@ body.opened {
     transition: opacity .8s ease;
 }
 
-body.opened .page-dots {
+body.site-open .page-dots {
     opacity: 1;
 }
 
@@ -361,290 +364,187 @@ body.opened .page-dots {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 13px;
-    padding: 15px 10px;
-    border-radius: 30px;
-    background: rgba(247,235,211,.30);
-    border: 1px solid rgba(218,180,115,.65);
-    box-shadow: 0 4px 20px rgba(35,20,10,.16);
-    backdrop-filter: blur(9px);
-    -webkit-backdrop-filter: blur(9px);
+    gap: 10px;
+    padding: 9px 6px;
+    border-radius: 22px;
+    background: rgba(247,235,211,.25);
+    border: 1px solid rgba(218,180,115,.5);
+    box-shadow: 0 3px 12px rgba(35,20,10,.12);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
 
 .page-dot {
-    width: 7px;
-    height: 7px;
+    width: 5px;
+    height: 5px;
     display: block;
     border-radius: 50%;
     background: rgba(195,151,83,.65);
-    box-shadow: 0 0 4px rgba(225,190,126,.35);
     transition: all .35s ease;
 }
 
 .page-dot.active {
-    width: 10px;
-    height: 10px;
+    width: 7px;
+    height: 7px;
     background: #f5d493;
     box-shadow:
-        0 0 0 3px rgba(232,198,137,.23),
-        0 0 12px 4px rgba(224,184,105,.65);
+        0 0 0 2px rgba(232,198,137,.2),
+        0 0 7px 2px rgba(224,184,105,.65);
 }
 
 /* =================================
-   PAGE 2 - ROYAL UNROLLING SCROLL
+   PAGE 2 - THREE PART SCROLL
 ================================= */
 
 .scroll-section {
     position: relative;
     width: 100%;
-    height: 320vh;
-    min-height: 320vh;
-    overflow: visible;
+    height: 280vh;
     background: #e9ddc6;
+}
+
+/* SCREEN STAGE */
+
+.scroll-stage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100svh;
+    height: 100dvh;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+/* KEEP PAGE 2 FIXED WHILE UNROLLING */
+
+.scroll-section.is-pinned .scroll-stage {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+/* WHEN PAGE 2 SCROLL ENDS */
+
+.scroll-section.is-ended .scroll-stage {
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    left: 0;
 }
 
 /* PAGE 2 BACKGROUND */
 
-.scroll-bg-sticky {
-    position: sticky;
-    top: 0;
-    width: 100%;
-    height: 100vh;
-    height: 100dvh;
-    margin-bottom: -100vh;
-    z-index: 0;
-    overflow: hidden;
-}
-
-.scroll-bg-sticky img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-}
-
-/* SCROLL AREA */
-
-.scroll-art {
+.scroll-bg {
     position: absolute;
     inset: 0;
-    z-index: 2;
-    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
 }
 
-/* THE PARCHMENT */
+/* SCROLL ASSEMBLY */
 
-.parchment {
+.scroll-composition {
+    --spread: 0px;
+
     position: absolute;
-    top: 18vh;
     left: 50%;
-    transform: translateX(-50%);
-    width: min(76vw, 500px);
-    height: 150px;
-    border-radius: 8px;
+    top: 62%;
+    transform: translate(-50%, -50%);
+    width: min(82vw, 470px);
+    z-index: 2;
+}
+
+/* MIDDLE PAPER */
+
+.scroll-middle {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: calc(var(--spread) * 2);
+    transform: translateY(-50%);
     overflow: hidden;
-
-    background:
-        linear-gradient(
-            90deg,
-            #bd9867 0%,
-            #f4e7cb 5%,
-            #fff9eb 17%,
-            #eee0c4 48%,
-            #fff9e9 83%,
-            #c5a06e 100%
-        );
-
-    border: 1px solid rgba(164,122,66,.65);
-
-    box-shadow:
-        0 12px 35px rgba(54,35,16,.28),
-        0 2px 8px rgba(255,255,255,.55) inset,
-        0 -3px 9px rgba(154,111,56,.22) inset;
-
+    z-index: 1;
     will-change: height;
 }
 
-/* INNER PAPER */
-
-.paper-surface {
-    position: absolute;
-    inset: 17px 0;
-    background:
-        linear-gradient(
-            90deg,
-            rgba(185,143,85,.35),
-            #f8edd8 12%,
-            #fffaf0 35%,
-            #f2e4ca 68%,
-            #fff9ed 88%,
-            rgba(182,139,79,.3)
-        );
-    border-top: 1px solid rgba(255,255,255,.75);
-    border-bottom: 1px solid rgba(178,137,79,.35);
+.scroll-middle img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
 }
 
-/* SHINY FINISH */
+/* TOP ROLL */
 
-.paper-gloss {
+.scroll-top {
     position: absolute;
-    inset: 0;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: auto;
+    display: block;
     z-index: 3;
-    background:
-        linear-gradient(
-            108deg,
-            transparent 8%,
-            rgba(255,255,255,.32) 22%,
-            rgba(255,255,255,.65) 27%,
-            transparent 39%,
-            rgba(255,255,255,.16) 70%,
-            transparent 87%
-        );
-    opacity: .75;
-    animation: paperShine 6s ease-in-out infinite;
+    transform: translateY(calc(-100% - var(--spread)));
+    will-change: transform;
 }
 
-@keyframes paperShine {
-    0%,100% { opacity: .45; }
-    50% { opacity: .9; }
-}
+/* BOTTOM ROLL */
 
-/* GOLDEN SCROLL ROLLS */
-
-.scroll-roll {
+.scroll-bottom {
     position: absolute;
-    left: -12px;
-    width: calc(100% + 24px);
-    height: 34px;
-    z-index: 8;
-    border-radius: 50% / 42%;
-
-    background:
-        linear-gradient(
-            180deg,
-            #fff5df 0%,
-            #d9bd8c 18%,
-            #fff6df 36%,
-            #c29a63 68%,
-            #f9e9c8 100%
-        );
-
-    border: 1px solid rgba(157,113,57,.8);
-
-    box-shadow:
-        0 3px 8px rgba(70,44,18,.27),
-        0 2px 5px rgba(255,255,255,.8) inset;
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: auto;
+    display: block;
+    z-index: 3;
+    transform: translateY(var(--spread));
+    will-change: transform;
 }
 
-.scroll-roll::before,
-.scroll-roll::after {
-    content: "";
-    position: absolute;
-    top: 5px;
-    width: 14px;
-    height: 22px;
-    border-radius: 50%;
-    background: linear-gradient(
-        90deg,
-        #b78d56,
-        #fff2d3,
-        #d1aa70
-    );
-    border: 1px solid rgba(157,113,57,.55);
-}
-
-.scroll-roll::before {
-    left: 3px;
-}
-
-.scroll-roll::after {
-    right: 3px;
-}
-
-.top-roll {
-    top: -1px;
-}
-
-.bottom-roll {
-    bottom: -1px;
-}
-
-/* DIAMOND DETAILS ON BOTH SIDES */
-
-.gem-column {
-    position: absolute;
-    top: 43px;
-    bottom: 43px;
-    width: 15px;
-    z-index: 6;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.gem-left {
-    left: 12px;
-}
-
-.gem-right {
-    right: 12px;
-}
-
-.scroll-gem {
-    width: 9px;
-    height: 9px;
-    flex-shrink: 0;
-    transform: rotate(45deg);
-
-    background:
-        linear-gradient(
-            135deg,
-            #ffffff 0%,
-            #e8d5af 28%,
-            #fffdf5 52%,
-            #c4a16a 100%
-        );
-
-    border: 1px solid rgba(173,135,79,.75);
-
-    box-shadow:
-        0 0 5px rgba(255,248,221,.9),
-        0 0 9px rgba(208,171,106,.4);
-}
-
-/* SCROLL INSTRUCTION */
+/* SCROLL TO UNROLL */
 
 .scroll-hint {
     position: absolute;
-    top: calc(18vh + 195px);
+    top: 83%;
     left: 50%;
     transform: translateX(-50%);
-    width: 100%;
-    text-align: center;
+    z-index: 5;
+
+    padding: 10px 17px;
+    white-space: nowrap;
 
     color: #8c683b;
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 4px;
+    font-family: 'Marcellus', serif;
+    font-size: 10px;
+    letter-spacing: 3px;
 
-    text-shadow: 0 1px 5px rgba(255,255,255,.9);
+    background: rgba(255,248,231,.48);
+    border: 1px solid rgba(190,151,91,.55);
+    border-radius: 3px;
 
+    box-shadow:
+        0 3px 12px rgba(70,45,18,.10),
+        0 1px 4px rgba(255,255,255,.5) inset;
+
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+
+    transition: opacity .4s ease;
     animation: hintBreathe 2s ease-in-out infinite;
-    transition: opacity .5s ease;
 }
 
 @keyframes hintBreathe {
-    0%,100% {
-        opacity: .55;
-    }
-    50% {
-        opacity: 1;
-    }
+    0%,100% { opacity: .65; }
+    50% { opacity: 1; }
 }
 
-/* MOBILE ADJUSTMENTS */
+/* MOBILE */
 
 @media (max-width: 480px) {
 
@@ -653,17 +553,24 @@ body.opened .page-dots {
     }
 
     .dots-pill {
-        padding: 13px 8px;
-        gap: 12px;
+        padding: 8px 5px;
+        gap: 9px;
     }
 
-    .parchment {
-        width: 78vw;
+    .scroll-composition {
+        width: 82vw;
+        top: 62%;
     }
 
     .scroll-hint {
-        font-size: 10px;
-        letter-spacing: 3px;
+        top: 83%;
+        font-size: 9px;
+        letter-spacing: 2.5px;
+        padding: 9px 13px;
+    }
+
+    .intro-content {
+        transform: translateY(4vh);
     }
 }
 
@@ -680,10 +587,7 @@ body.opened .page-dots {
 
     <img src="background.JPG" class="background" alt="">
 
-    <!-- INVITATION TEXT -->
-
     <div class="intro">
-
         <div class="intro-content">
 
             <div class="intro-line bismillah line-1">
@@ -716,7 +620,6 @@ body.opened .page-dots {
             </div>
 
         </div>
-
     </div>
 
     <!-- LEFT GATE -->
@@ -779,70 +682,47 @@ body.opened .page-dots {
 
     </div>
 
-    <!-- TAP TO OPEN -->
-
     <div class="tap-area" id="tapArea">
         <div class="tap-text">TAP TO OPEN</div>
     </div>
 
 </section>
 
-
 <!-- =================================
-     PAGE 2 - LONG ROYAL SCROLL
+     PAGE 2 - THREE PART SCROLL
 ================================= -->
 
 <section class="scroll-section" id="page2">
 
-    <!-- PAGE 2 BACKGROUND -->
+    <div class="scroll-stage">
 
-    <div class="scroll-bg-sticky">
-        <img src="bg.JPG" alt="">
-    </div>
+        <img src="bg.JPG" class="scroll-bg" alt="">
 
-    <div class="scroll-art">
+        <div class="scroll-composition" id="scrollComposition">
 
-        <!-- CLOSED / UNROLLING PARCHMENT -->
+            <!-- MIDDLE PAPER -->
 
-        <div class="parchment" id="parchment">
-
-            <div class="paper-surface"></div>
-
-            <div class="paper-gloss"></div>
-
-            <!-- LEFT DIAMONDS -->
-
-            <div class="gem-column gem-left">
-                <span class="scroll-gem"></span>
-                <span class="scroll-gem"></span>
-                <span class="scroll-gem"></span>
-                <span class="scroll-gem"></span>
-                <span class="scroll-gem"></span>
-                <span class="scroll-gem"></span>
-            </div>
-
-            <!-- RIGHT DIAMONDS -->
-
-            <div class="gem-column gem-right">
-                <span class="scroll-gem"></span>
-                <span class="scroll-gem"></span>
-                <span class="scroll-gem"></span>
-                <span class="scroll-gem"></span>
-                <span class="scroll-gem"></span>
-                <span class="scroll-gem"></span>
+            <div class="scroll-middle" id="scrollMiddle">
+                <img src="msg.PNG" alt="">
             </div>
 
             <!-- TOP ROLL -->
 
-            <div class="scroll-roll top-roll"></div>
+            <img
+                src="top.PNG"
+                class="scroll-top"
+                alt=""
+            >
 
             <!-- BOTTOM ROLL -->
 
-            <div class="scroll-roll bottom-roll"></div>
+            <img
+                src="bottom.PNG"
+                class="scroll-bottom"
+                alt=""
+            >
 
         </div>
-
-        <!-- INSTRUCTION -->
 
         <div class="scroll-hint" id="scrollHint">
             SCROLL TO UNROLL
@@ -852,12 +732,11 @@ body.opened .page-dots {
 
 </section>
 
-
 <!-- =================================
      LEFT PAGE INDICATOR
 ================================= -->
 
-<div class="page-dots" aria-label="Page indicator">
+<div class="page-dots">
 
     <div class="dots-pill">
 
@@ -871,7 +750,6 @@ body.opened .page-dots {
     </div>
 
 </div>
-
 
 <script>
 
@@ -891,75 +769,116 @@ tapArea.addEventListener("click", function() {
     opened = true;
 
     scene.classList.add("opening");
-    document.body.classList.add("opened");
+
+    setTimeout(function() {
+
+        document.documentElement.classList.add("site-open");
+        document.body.classList.add("site-open");
+
+        updateScrollDesign();
+
+    }, 5800);
 
 });
 
-
 /* =================================
-   SCROLL UNROLL ANIMATION
+   PAGE 2 - FIXED UNROLLING SYSTEM
 ================================= */
 
 const page2 = document.getElementById("page2");
-const parchment = document.getElementById("parchment");
-const scrollHint = document.getElementById("scrollHint");
 
-const dots = document.querySelectorAll(".page-dot");
+const scrollComposition =
+    document.getElementById("scrollComposition");
+
+const scrollHint =
+    document.getElementById("scrollHint");
+
+const dots =
+    document.querySelectorAll(".page-dot");
 
 
 function updateScrollDesign() {
 
+    if (!document.body.classList.contains("site-open")) {
+        return;
+    }
+
     const sectionTop =
         page2.getBoundingClientRect().top + window.scrollY;
 
-    const availableScroll =
-        Math.max(1, page2.offsetHeight - window.innerHeight);
+    const sectionHeight =
+        page2.offsetHeight;
+
+    const viewportHeight =
+        window.innerHeight;
+
+    const start =
+        sectionTop;
+
+    const end =
+        sectionTop + sectionHeight - viewportHeight;
+
+    const currentY =
+        window.scrollY;
+
+    /* RESET PIN STATES */
+
+    page2.classList.remove(
+        "is-pinned",
+        "is-ended"
+    );
+
+    /* KEEP THE WHOLE PAGE 2 SCREEN FIXED */
+
+    if (currentY >= start && currentY < end) {
+
+        page2.classList.add("is-pinned");
+
+    } else if (currentY >= end) {
+
+        page2.classList.add("is-ended");
+
+    }
+
+    /* SCROLL PROGRESS */
 
     let progress =
-        (window.scrollY - sectionTop) / availableScroll;
+        (currentY - start) /
+        Math.max(1, end - start);
 
-    progress = Math.max(0, Math.min(1, progress));
+    progress =
+        Math.max(0, Math.min(1, progress));
 
+    /*
+       CLOSED:
+       spread = 0
 
-    /* CLOSED SIZE */
+       OPEN:
+       top moves upward
+       bottom moves downward
+       middle paper expands
+    */
 
-    const closedHeight =
-        Math.max(145, window.innerHeight * 0.17);
+    const maxSpread =
+        Math.min(viewportHeight * 0.25, 240);
 
+    const currentSpread =
+        maxSpread * progress;
 
-    /* FULL LONG SCROLL SIZE */
+    scrollComposition.style.setProperty(
+        "--spread",
+        currentSpread + "px"
+    );
 
-    const fullHeight =
-        Math.max(
-            1200,
-            page2.offsetHeight - window.innerHeight * 0.18
-        );
+    /* HIDE SCROLL INSTRUCTION */
 
+    scrollHint.style.opacity =
+        progress > 0.015 ? "0" : "1";
 
-    /* GRADUAL UNROLLING */
+    /* PAGE DOTS */
 
-    const currentHeight =
-        closedHeight + (fullHeight - closedHeight) * progress;
-
-    parchment.style.height = currentHeight + "px";
-
-
-    /* HIDE INSTRUCTION WHILE UNROLLING */
-
-    if (progress > 0.025) {
-        scrollHint.style.opacity = "0";
-    } else {
-        scrollHint.style.opacity = "1";
-    }
-
-
-    /* ACTIVE PAGE DOT */
-
-    let activePage = 0;
-
-    if (window.scrollY >= sectionTop - 2) {
-        activePage = 1;
-    }
+    const activePage =
+        currentY >= start - 10 ? 1 : 0;
 
     dots.forEach(function(dot, index) {
 
@@ -972,8 +891,7 @@ function updateScrollDesign() {
 
 }
 
-
-/* UPDATE WHEN GUEST SCROLLS */
+/* SCROLL */
 
 window.addEventListener(
     "scroll",
@@ -981,14 +899,12 @@ window.addEventListener(
     { passive: true }
 );
 
-
-/* UPDATE ON SCREEN SIZE CHANGE */
+/* RESIZE */
 
 window.addEventListener(
     "resize",
     updateScrollDesign
 );
-
 
 /* INITIAL STATE */
 
