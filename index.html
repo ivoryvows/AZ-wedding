@@ -393,7 +393,7 @@ body.site-open .page-dots {
 }
 
 /* =================================
-   PAGE 2 - THREE PART SCROLL
+   PAGE 2 - CONNECTED THREE PART SCROLL
 ================================= */
 
 .scroll-section {
@@ -403,7 +403,7 @@ body.site-open .page-dots {
     background: #e9ddc6;
 }
 
-/* SCREEN STAGE */
+/* FIXED SCREEN */
 
 .scroll-stage {
     position: absolute;
@@ -417,7 +417,7 @@ body.site-open .page-dots {
     isolation: isolate;
 }
 
-/* KEEP PAGE 2 FIXED WHILE UNROLLING */
+/* PIN DURING REVEAL */
 
 .scroll-section.is-pinned .scroll-stage {
     position: fixed;
@@ -425,7 +425,7 @@ body.site-open .page-dots {
     left: 0;
 }
 
-/* WHEN PAGE 2 SCROLL ENDS */
+/* END OF REVEAL */
 
 .scroll-section.is-ended .scroll-stage {
     position: absolute;
@@ -434,7 +434,7 @@ body.site-open .page-dots {
     left: 0;
 }
 
-/* PAGE 2 BACKGROUND */
+/* BACKGROUND */
 
 .scroll-bg {
     position: absolute;
@@ -445,69 +445,92 @@ body.site-open .page-dots {
     z-index: -1;
 }
 
-/* SCROLL ASSEMBLY */
+/* SCROLL COMPOSITION */
 
 .scroll-composition {
     --spread: 0px;
 
     position: absolute;
     left: 50%;
-    top: 62%;
+    top: 50%;
     transform: translate(-50%, -50%);
-    width: min(82vw, 470px);
+
+    /* SMALLER SCROLL SIZE */
+    width: min(58vw, 330px);
+
     z-index: 2;
 }
 
-/* MIDDLE PAPER */
+/* MIDDLE MESSAGE PAPER */
 
 .scroll-middle {
     position: absolute;
     top: 50%;
     left: 0;
+
     width: 100%;
     height: calc(var(--spread) * 2);
+
     transform: translateY(-50%);
     overflow: hidden;
     z-index: 1;
+
     will-change: height;
 }
 
+/* KEEP ORIGINAL MESSAGE PROPORTIONS */
+
 .scroll-middle img {
+    position: absolute;
+    top: 50%;
+    left: 0;
+
     display: block;
     width: 100%;
-    height: 100%;
-    object-fit: fill;
+    height: auto;
+
+    transform: translateY(-50%);
 }
 
-/* TOP ROLL */
+/* TOP ROLL - 1424 x 342 */
 
 .scroll-top {
     position: absolute;
     left: 0;
     top: 50%;
+
+    display: block;
     width: 100%;
     height: auto;
-    display: block;
+
     z-index: 3;
+
+    /* BOTTOM EDGE CONNECTS TO MESSAGE */
     transform: translateY(calc(-100% - var(--spread)));
+
     will-change: transform;
 }
 
-/* BOTTOM ROLL */
+/* BOTTOM ROLL - 1370 x 369 */
 
 .scroll-bottom {
     position: absolute;
     left: 0;
     top: 50%;
+
+    display: block;
     width: 100%;
     height: auto;
-    display: block;
+
     z-index: 3;
+
+    /* TOP EDGE CONNECTS TO MESSAGE */
     transform: translateY(var(--spread));
+
     will-change: transform;
 }
 
-/* SCROLL TO UNROLL */
+/* SCROLL INSTRUCTION */
 
 .scroll-hint {
     position: absolute;
@@ -535,7 +558,7 @@ body.site-open .page-dots {
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
 
-    transition: opacity .4s ease;
+    transition: opacity .3s ease;
     animation: hintBreathe 2s ease-in-out infinite;
 }
 
@@ -558,8 +581,7 @@ body.site-open .page-dots {
     }
 
     .scroll-composition {
-        width: 82vw;
-        top: 62%;
+        width: 58vw;
     }
 
     .scroll-hint {
@@ -689,7 +711,7 @@ body.site-open .page-dots {
 </section>
 
 <!-- =================================
-     PAGE 2 - THREE PART SCROLL
+     PAGE 2
 ================================= -->
 
 <section class="scroll-section" id="page2">
@@ -700,9 +722,9 @@ body.site-open .page-dots {
 
         <div class="scroll-composition" id="scrollComposition">
 
-            <!-- MIDDLE PAPER -->
+            <!-- MIDDLE MESSAGE -->
 
-            <div class="scroll-middle" id="scrollMiddle">
+            <div class="scroll-middle">
                 <img src="msg.PNG" alt="">
             </div>
 
@@ -782,7 +804,7 @@ tapArea.addEventListener("click", function() {
 });
 
 /* =================================
-   PAGE 2 - FIXED UNROLLING SYSTEM
+   PAGE 2 - CONNECTED SCROLL REVEAL
 ================================= */
 
 const page2 = document.getElementById("page2");
@@ -795,7 +817,6 @@ const scrollHint =
 
 const dots =
     document.querySelectorAll(".page-dot");
-
 
 function updateScrollDesign() {
 
@@ -812,23 +833,19 @@ function updateScrollDesign() {
     const viewportHeight =
         window.innerHeight;
 
-    const start =
-        sectionTop;
+    const start = sectionTop;
 
     const end =
         sectionTop + sectionHeight - viewportHeight;
 
-    const currentY =
-        window.scrollY;
+    const currentY = window.scrollY;
 
-    /* RESET PIN STATES */
+    /* PIN PAGE 2 WHILE REVEALING */
 
     page2.classList.remove(
         "is-pinned",
         "is-ended"
     );
-
-    /* KEEP THE WHOLE PAGE 2 SCREEN FIXED */
 
     if (currentY >= start && currentY < end) {
 
@@ -840,7 +857,7 @@ function updateScrollDesign() {
 
     }
 
-    /* SCROLL PROGRESS */
+    /* REVEAL PROGRESS */
 
     let progress =
         (currentY - start) /
@@ -850,27 +867,38 @@ function updateScrollDesign() {
         Math.max(0, Math.min(1, progress));
 
     /*
-       CLOSED:
-       spread = 0
+       MESSAGE IMAGE RATIO:
+       632 x 1242
 
-       OPEN:
-       top moves upward
-       bottom moves downward
-       middle paper expands
+       Calculate the exact middle height
+       from the displayed composition width.
+    */
+
+    const compositionWidth =
+        scrollComposition.clientWidth;
+
+    const messageFullHeight =
+        compositionWidth * (1242 / 632);
+
+    /*
+       Half height is the maximum movement
+       of each roll from the centre.
     */
 
     const maxSpread =
-        Math.min(viewportHeight * 0.25, 240);
+        messageFullHeight / 2;
 
     const currentSpread =
         maxSpread * progress;
+
+    /* APPLY SAME MOVEMENT TO BOTH ROLLS */
 
     scrollComposition.style.setProperty(
         "--spread",
         currentSpread + "px"
     );
 
-    /* HIDE SCROLL INSTRUCTION */
+    /* HIDE INSTRUCTION AFTER SCROLL STARTS */
 
     scrollHint.style.opacity =
         progress > 0.015 ? "0" : "1";
@@ -891,7 +919,7 @@ function updateScrollDesign() {
 
 }
 
-/* SCROLL */
+/* SCROLL LISTENER */
 
 window.addEventListener(
     "scroll",
@@ -899,7 +927,7 @@ window.addEventListener(
     { passive: true }
 );
 
-/* RESIZE */
+/* RESIZE LISTENER */
 
 window.addEventListener(
     "resize",
