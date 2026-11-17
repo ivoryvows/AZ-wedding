@@ -30,7 +30,7 @@ body.site-open {
     -webkit-overflow-scrolling: touch;
 }
 
-/* PAGE 1 - GATES */
+/* PAGE 1 */
 
 .scene {
     position: relative;
@@ -38,8 +38,10 @@ body.site-open {
     height: 100vh;
     height: 100svh;
     height: 100dvh;
+    min-height: 100dvh;
     overflow: hidden;
     perspective: 1400px;
+    flex-shrink: 0;
 }
 
 .background {
@@ -388,13 +390,18 @@ body.site-open .page-dots {
         0 0 7px 2px rgba(224,184,105,.65);
 }
 
-/* PAGE 2 - THREE PART SCROLL */
+/* PAGE 2 */
 
 .scroll-section {
     position: relative;
     width: 100%;
     height: 280vh;
     background: #e9ddc6;
+    visibility: hidden;
+}
+
+body.site-open .scroll-section {
+    visibility: visible;
 }
 
 .scroll-stage {
@@ -435,14 +442,15 @@ body.site-open .page-dots {
 
 .scroll-composition {
     --spread: 0px;
+    --join: 12px;
 
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
 
-    /* MESSAGE SIZE UNCHANGED */
     width: min(58vw, 330px);
+    aspect-ratio: 632 / 1242;
 
     z-index: 2;
 }
@@ -471,7 +479,7 @@ body.site-open .page-dots {
     transform: translateY(-50%);
 }
 
-/* TOP ROLL - MEETS CENTER, MOVES UP */
+/* TOP ROLL */
 
 .scroll-top {
     position: absolute;
@@ -482,15 +490,14 @@ body.site-open .page-dots {
     height: auto;
     z-index: 3;
 
-    /* CLOSED: BOTTOM EDGE AT CENTER */
     transform: translateY(
-        calc(-100% - var(--spread))
+        calc(-100% + var(--join) - var(--spread))
     );
 
     will-change: transform;
 }
 
-/* BOTTOM ROLL - MEETS CENTER, MOVES DOWN */
+/* BOTTOM ROLL */
 
 .scroll-bottom {
     position: absolute;
@@ -501,17 +508,18 @@ body.site-open .page-dots {
     height: auto;
     z-index: 3;
 
-    /* CLOSED: TOP EDGE AT CENTER */
-    transform: translateY(var(--spread));
+    transform: translateY(
+        calc(var(--spread) - var(--join))
+    );
 
     will-change: transform;
 }
 
-/* SCROLL INSTRUCTION - DIRECTLY BELOW CLOSED SCROLL */
+/* SCROLL HINT */
 
 .scroll-hint {
     position: absolute;
-    top: calc(50% + min(21.9vw, 124px) + 18px);
+    top: calc(50% + min(57vw, 162px) + 18px);
     left: 50%;
     transform: translateX(-50%);
     z-index: 5;
@@ -536,13 +544,14 @@ body.site-open .page-dots {
     -webkit-backdrop-filter: blur(5px);
 
     opacity: 1;
-    transition: opacity .25s ease;
-    animation: hintBreathe 2s ease-in-out infinite;
+    visibility: visible;
+    pointer-events: none;
+    transition: opacity .25s ease, visibility .25s ease;
 }
 
-@keyframes hintBreathe {
-    0%,100% { opacity: .65; }
-    50% { opacity: 1; }
+.scroll-hint.is-hidden {
+    opacity: 0;
+    visibility: hidden;
 }
 
 /* MOBILE */
@@ -563,7 +572,7 @@ body.site-open .page-dots {
     }
 
     .scroll-hint {
-        top: calc(50% + 21.9vw + 18px);
+        top: calc(50% + 57vw + 18px);
         font-size: 9px;
         letter-spacing: 2.5px;
         padding: 9px 13px;
@@ -709,7 +718,7 @@ body.site-open .page-dots {
 
 </section>
 
-<!-- LEFT PAGE INDICATOR -->
+<!-- PAGE INDICATOR -->
 
 <div class="page-dots">
     <div class="dots-pill">
@@ -739,7 +748,11 @@ tapArea.addEventListener("click", function() {
 
     scene.classList.add("opening");
 
+    /* Keep Page 1 locked until opening finishes */
+
     setTimeout(function() {
+
+        window.scrollTo(0, 0);
 
         document.documentElement.classList.add("site-open");
         document.body.classList.add("site-open");
@@ -750,7 +763,7 @@ tapArea.addEventListener("click", function() {
 
 });
 
-/* PAGE 2 - CONNECTED SCROLL REVEAL */
+/* PAGE 2 SCROLL */
 
 const page2 = document.getElementById("page2");
 
@@ -769,8 +782,8 @@ function updateScrollDesign() {
         return;
     }
 
-    const sectionTop =
-        page2.getBoundingClientRect().top + window.scrollY;
+    const start =
+        page2.offsetTop;
 
     const sectionHeight =
         page2.offsetHeight;
@@ -778,12 +791,13 @@ function updateScrollDesign() {
     const viewportHeight =
         window.innerHeight;
 
-    const start = sectionTop;
-
     const end =
-        sectionTop + sectionHeight - viewportHeight;
+        start + sectionHeight - viewportHeight;
 
-    const currentY = window.scrollY;
+    const currentY =
+        window.scrollY;
+
+    /* PIN PAGE 2 WHILE UNROLLING */
 
     page2.classList.remove(
         "is-pinned",
@@ -800,12 +814,16 @@ function updateScrollDesign() {
 
     }
 
+    /* SCROLL PROGRESS */
+
     let progress =
         (currentY - start) /
         Math.max(1, end - start);
 
     progress =
         Math.max(0, Math.min(1, progress));
+
+    /* MESSAGE OPENING DISTANCE */
 
     const compositionWidth =
         scrollComposition.clientWidth;
@@ -824,10 +842,17 @@ function updateScrollDesign() {
         currentSpread + "px"
     );
 
-    /* HIDE INSTRUCTION AS SOON AS SCROLL STARTS */
+    /* HIDE WHEN SCROLLING, SHOW AGAIN WHEN CLOSED */
 
-    scrollHint.style.opacity =
-        progress > 0.002 ? "0" : "1";
+    const hasStartedUnrolling =
+        currentY > start + 2;
+
+    scrollHint.classList.toggle(
+        "is-hidden",
+        hasStartedUnrolling
+    );
+
+    /* PAGE INDICATOR */
 
     const activePage =
         currentY >= start - 10 ? 1 : 0;
