@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Our Wedding</title>
+<title>Royal Wedding Invitation</title>
 
 <style>
 * {
@@ -17,7 +17,7 @@ html, body {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: #160e09;
+    background: #100b08;
 }
 
 .scene {
@@ -26,9 +26,10 @@ html, body {
     height: 100vh;
     height: 100dvh;
     overflow: hidden;
+    perspective: 1400px;
 }
 
-/* Background revealed after opening */
+/* BACKGROUND */
 
 .background {
     position: absolute;
@@ -39,18 +40,19 @@ html, body {
     z-index: 1;
 }
 
-/* Gate panels */
+/* GATES */
 
 .gate {
     position: absolute;
     top: 0;
     width: 50%;
     height: 100%;
-    z-index: 3;
     overflow: hidden;
+    z-index: 3;
+    transform-style: preserve-3d;
 }
 
-.gate img {
+.gate-image {
     width: 100%;
     height: 100%;
     display: block;
@@ -59,41 +61,97 @@ html, body {
 
 .left-gate {
     left: 0;
+    transform-origin: left center;
 }
 
 .right-gate {
     right: 0;
+    transform-origin: right center;
 }
 
-/* Complete brooch */
+/* BROOCH HALVES */
 
-.brooch-full,
 .brooch-half {
     position: absolute;
-    width: clamp(130px, 28vw, 300px);
-    height: auto;
-    left: 50%;
     top: 50%;
-    z-index: 5;
-    transform: translate(-50%, -50%);
+    width: clamp(120px, 28vw, 260px);
+    height: auto;
+    max-height: 50vh;
+    object-fit: contain;
+    z-index: 4;
     pointer-events: none;
 }
 
-.brooch-half {
-    opacity: 0;
-}
-
-/* Clip brooch into two equal halves */
-
 .brooch-left {
-    clip-path: inset(0 50% 0 0);
+    left: 100%;
+    transform: translate(-50%, -50%);
 }
 
 .brooch-right {
-    clip-path: inset(0 0 0 50%);
+    left: 0;
+    transform: translate(-50%, -50%);
 }
 
-/* Tap instruction */
+/* LED RING - ATTACHED TO BROOCH */
+
+.led-ring {
+    position: absolute;
+    top: 50%;
+    width: clamp(120px, 28vw, 260px);
+    aspect-ratio: 1;
+    z-index: 5;
+    pointer-events: none;
+}
+
+.left-led {
+    left: 100%;
+    transform: translate(-50%, -50%);
+}
+
+.right-led {
+    left: 0;
+    transform: translate(-50%, -50%);
+}
+
+/* ONLY THE MIDDLE CIRCLE */
+
+.led-orbit {
+    position: absolute;
+    width: 42%;
+    height: 42%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* LED LIGHTS */
+
+.led-dot {
+    position: absolute;
+    width: clamp(4px, 1vw, 7px);
+    height: clamp(4px, 1vw, 7px);
+    border-radius: 50%;
+    background: #fff3c4;
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(.5);
+}
+
+/* 12 circular positions */
+
+.led-dot:nth-child(1)  { left:50%; top:0%; }
+.led-dot:nth-child(2)  { left:75%; top:6.7%; }
+.led-dot:nth-child(3)  { left:93.3%; top:25%; }
+.led-dot:nth-child(4)  { left:100%; top:50%; }
+.led-dot:nth-child(5)  { left:93.3%; top:75%; }
+.led-dot:nth-child(6)  { left:75%; top:93.3%; }
+.led-dot:nth-child(7)  { left:50%; top:100%; }
+.led-dot:nth-child(8)  { left:25%; top:93.3%; }
+.led-dot:nth-child(9)  { left:6.7%; top:75%; }
+.led-dot:nth-child(10) { left:0%; top:50%; }
+.led-dot:nth-child(11) { left:6.7%; top:25%; }
+.led-dot:nth-child(12) { left:25%; top:6.7%; }
+
+/* TAP */
 
 .tap-area {
     position: absolute;
@@ -108,97 +166,72 @@ html, body {
 }
 
 .tap-text {
-    color: #fff0ce;
+    color: #f9e7c0;
     font-family: Georgia, serif;
     font-size: 13px;
     letter-spacing: 5px;
-    text-shadow: 0 0 12px #c99a4e;
+    text-shadow: 0 0 12px #d4a44c;
     animation: breathe 2s infinite;
 }
 
 @keyframes breathe {
-    0%, 100% { opacity: .55; }
+    0%, 100% { opacity: .5; }
     50% { opacity: 1; }
 }
 
-/* Opening animation */
+/* SEQUENTIAL LED LIGHTING */
 
-.opening .brooch-full {
-    animation: broochGlow 1.2s ease forwards;
+.opening .led-dot {
+    animation: ledLight .55s ease forwards;
+    animation-delay: calc(var(--i) * .22s);
 }
 
-@keyframes broochGlow {
+@keyframes ledLight {
     0% {
-        filter: drop-shadow(0 0 0 transparent);
-        opacity: 1;
-    }
-    45% {
-        filter:
-          drop-shadow(0 0 12px #fff0a0)
-          drop-shadow(0 0 28px #e9b54d)
-          drop-shadow(0 0 45px #ffd66e);
-        opacity: 1;
-    }
-    100% {
-        filter:
-          drop-shadow(0 0 18px #ffe5a0)
-          drop-shadow(0 0 35px #e8ad3f);
         opacity: 0;
+        transform: translate(-50%, -50%) scale(.5);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+        background: #fff5d0;
+        box-shadow:
+            0 0 4px 2px rgba(255, 235, 170, .75),
+            0 0 9px 3px rgba(240, 190, 95, .45);
     }
 }
+
+/* REAL HINGED GATE OPENING */
 
 .opening .left-gate {
-    animation: openLeft 2.8s cubic-bezier(.65,0,.25,1) 1.2s forwards;
+    animation: swingLeft 2.6s cubic-bezier(.65,0,.25,1)
+               3.1s forwards;
 }
 
 .opening .right-gate {
-    animation: openRight 2.8s cubic-bezier(.65,0,.25,1) 1.2s forwards;
+    animation: swingRight 2.6s cubic-bezier(.65,0,.25,1)
+               3.1s forwards;
 }
 
-@keyframes openLeft {
-    to { transform: translateX(-100%); }
-}
-
-@keyframes openRight {
-    to { transform: translateX(100%); }
-}
-
-/* Brooch halves travel with their gates */
-
-.opening .brooch-left {
-    animation: splitLeft 2.8s cubic-bezier(.65,0,.25,1) 1.2s forwards;
-}
-
-.opening .brooch-right {
-    animation: splitRight 2.8s cubic-bezier(.65,0,.25,1) 1.2s forwards;
-}
-
-@keyframes splitLeft {
-    0% {
-        opacity: 0;
-        transform: translate(-50%, -50%);
-    }
-    12% { opacity: 1; }
-    100% {
-        opacity: 1;
-        transform: translate(calc(-50% - 50vw), -50%);
+@keyframes swingLeft {
+    to {
+        transform: rotateY(-100deg);
     }
 }
 
-@keyframes splitRight {
-    0% {
-        opacity: 0;
-        transform: translate(-50%, -50%);
-    }
-    12% { opacity: 1; }
-    100% {
-        opacity: 1;
-        transform: translate(calc(-50% + 50vw), -50%);
+@keyframes swingRight {
+    to {
+        transform: rotateY(100deg);
     }
 }
 
 .opening .tap-area {
-    display: none;
+    pointer-events: none;
+}
+
+.opening .tap-text {
+    opacity: 0;
 }
 </style>
 </head>
@@ -207,21 +240,63 @@ html, body {
 
 <div class="scene" id="scene">
 
-    <img class="background" src="background.JPG">
+    <img src="background.JPG" class="background" alt="">
+
+    <!-- LEFT GATE -->
 
     <div class="gate left-gate">
-        <img src="left-gate.PNG">
+
+        <img src="left-gate.PNG" class="gate-image" alt="">
+
+        <img src="brooch.PNG"
+             class="brooch-half brooch-left" alt="">
+
+        <div class="led-ring left-led">
+            <div class="led-orbit">
+                <span class="led-dot" style="--i:0"></span>
+                <span class="led-dot" style="--i:1"></span>
+                <span class="led-dot" style="--i:2"></span>
+                <span class="led-dot" style="--i:3"></span>
+                <span class="led-dot" style="--i:4"></span>
+                <span class="led-dot" style="--i:5"></span>
+                <span class="led-dot" style="--i:6"></span>
+                <span class="led-dot" style="--i:7"></span>
+                <span class="led-dot" style="--i:8"></span>
+                <span class="led-dot" style="--i:9"></span>
+                <span class="led-dot" style="--i:10"></span>
+                <span class="led-dot" style="--i:11"></span>
+            </div>
+        </div>
+
     </div>
+
+    <!-- RIGHT GATE -->
 
     <div class="gate right-gate">
-        <img src="right-gate.PNG">
+
+        <img src="right-gate.PNG" class="gate-image" alt="">
+
+        <img src="brooch.PNG"
+             class="brooch-half brooch-right" alt="">
+
+        <div class="led-ring right-led">
+            <div class="led-orbit">
+                <span class="led-dot" style="--i:0"></span>
+                <span class="led-dot" style="--i:1"></span>
+                <span class="led-dot" style="--i:2"></span>
+                <span class="led-dot" style="--i:3"></span>
+                <span class="led-dot" style="--i:4"></span>
+                <span class="led-dot" style="--i:5"></span>
+                <span class="led-dot" style="--i:6"></span>
+                <span class="led-dot" style="--i:7"></span>
+                <span class="led-dot" style="--i:8"></span>
+                <span class="led-dot" style="--i:9"></span>
+                <span class="led-dot" style="--i:10"></span>
+                <span class="led-dot" style="--i:11"></span>
+            </div>
+        </div>
+
     </div>
-
-    <img class="brooch-full" src="brooch.PNG">
-
-    <img class="brooch-half brooch-left" src="brooch.PNG">
-
-    <img class="brooch-half brooch-right" src="brooch.PNG">
 
     <div class="tap-area" id="tapArea">
         <div class="tap-text">TAP TO OPEN</div>
@@ -236,10 +311,12 @@ const tapArea = document.getElementById("tapArea");
 let opened = false;
 
 tapArea.addEventListener("click", function() {
+
     if (opened) return;
 
     opened = true;
     scene.classList.add("opening");
+
 });
 </script>
 
