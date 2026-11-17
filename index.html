@@ -4,7 +4,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Royal Wedding Invitation</title>
+
+<title>Ayzal Fatemah & Zubair Ali</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Great+Vibes&family=Cinzel:wght@400;500;600&family=Noto+Naskh+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
 * {
@@ -15,15 +18,26 @@
 
 html, body {
     width: 100%;
-    height: 100%;
-    overflow: hidden;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
     background: #100b08;
 }
+
+body.opened {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* =================================
+   PAGE 1 - GATES
+================================= */
 
 .scene {
     position: relative;
     width: 100%;
     height: 100vh;
+    height: 100svh;
     height: 100dvh;
     overflow: hidden;
     perspective: 1400px;
@@ -39,6 +53,112 @@ html, body {
     object-fit: cover;
     z-index: 1;
 }
+
+/* INVITATION TEXT */
+
+.intro {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 18px;
+    pointer-events: none;
+}
+
+.intro-content {
+    width: 100%;
+    max-width: 700px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: clamp(5px, 1.2vh, 12px);
+}
+
+.intro-line {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(4px);
+    color: #f4e4c4;
+    text-shadow: 0 2px 12px rgba(35,20,10,.65);
+}
+
+.bismillah {
+    font-family: 'Noto Naskh Arabic', serif;
+    font-size: clamp(23px, 5vw, 37px);
+    color: #e8c78d;
+    direction: rtl;
+    line-height: 1.5;
+}
+
+.verse {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(16px, 3.8vw, 23px);
+    font-style: italic;
+    letter-spacing: .5px;
+}
+
+.families {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(10px, 2.5vw, 14px);
+    letter-spacing: 4px;
+    color: #d9bd8c;
+    margin-top: 4px;
+}
+
+.name {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(43px, 10vw, 75px);
+    line-height: 1.15;
+    color: #e8c994;
+}
+
+.ampersand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 5vw, 32px);
+    font-style: italic;
+    color: #d6b37a;
+}
+
+.request {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(15px, 3.7vw, 21px);
+    line-height: 1.35;
+    max-width: 450px;
+    color: #f0dfc0;
+    margin-top: 5px;
+}
+
+/* TEXT REVEAL */
+
+@keyframes textReveal {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+        filter: blur(4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        filter: blur(0);
+    }
+}
+
+.opening .intro-line {
+    animation: textReveal .8s ease forwards;
+}
+
+.opening .line-1 { animation-delay: 5.85s; }
+.opening .line-2 { animation-delay: 6.65s; }
+.opening .line-3 { animation-delay: 7.45s; }
+.opening .line-4 { animation-delay: 8.25s; }
+.opening .line-5 { animation-delay: 9.05s; }
+.opening .line-6 { animation-delay: 9.85s; }
+.opening .line-7 { animation-delay: 10.65s; }
 
 /* GATES */
 
@@ -69,7 +189,7 @@ html, body {
     transform-origin: right center;
 }
 
-/* BROOCH HALVES */
+/* BROOCH */
 
 .brooch-half {
     position: absolute;
@@ -92,7 +212,7 @@ html, body {
     transform: translate(-50%, -50%);
 }
 
-/* LED RING - ATTACHED TO BROOCH */
+/* LED RING */
 
 .led-ring {
     position: absolute;
@@ -113,8 +233,6 @@ html, body {
     transform: translate(-50%, -50%);
 }
 
-/* ONLY THE MIDDLE CIRCLE */
-
 .led-orbit {
     position: absolute;
     width: 42%;
@@ -123,8 +241,6 @@ html, body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-
-/* LED LIGHTS */
 
 .led-dot {
     position: absolute;
@@ -136,20 +252,54 @@ html, body {
     transform: translate(-50%, -50%) scale(.5);
 }
 
-/* 12 circular positions */
+.led-dot:nth-child(1) {left:50%;top:0%}
+.led-dot:nth-child(2) {left:75%;top:6.7%}
+.led-dot:nth-child(3) {left:93.3%;top:25%}
+.led-dot:nth-child(4) {left:100%;top:50%}
+.led-dot:nth-child(5) {left:93.3%;top:75%}
+.led-dot:nth-child(6) {left:75%;top:93.3%}
+.led-dot:nth-child(7) {left:50%;top:100%}
+.led-dot:nth-child(8) {left:25%;top:93.3%}
+.led-dot:nth-child(9) {left:6.7%;top:75%}
+.led-dot:nth-child(10) {left:0%;top:50%}
+.led-dot:nth-child(11) {left:6.7%;top:25%}
+.led-dot:nth-child(12) {left:25%;top:6.7%}
 
-.led-dot:nth-child(1)  { left:50%; top:0%; }
-.led-dot:nth-child(2)  { left:75%; top:6.7%; }
-.led-dot:nth-child(3)  { left:93.3%; top:25%; }
-.led-dot:nth-child(4)  { left:100%; top:50%; }
-.led-dot:nth-child(5)  { left:93.3%; top:75%; }
-.led-dot:nth-child(6)  { left:75%; top:93.3%; }
-.led-dot:nth-child(7)  { left:50%; top:100%; }
-.led-dot:nth-child(8)  { left:25%; top:93.3%; }
-.led-dot:nth-child(9)  { left:6.7%; top:75%; }
-.led-dot:nth-child(10) { left:0%; top:50%; }
-.led-dot:nth-child(11) { left:6.7%; top:25%; }
-.led-dot:nth-child(12) { left:25%; top:6.7%; }
+/* SEQUENTIAL LIGHTS */
+
+.opening .led-dot {
+    animation: ledLight .55s ease forwards;
+    animation-delay: calc(var(--i) * .22s);
+}
+
+@keyframes ledLight {
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+        background: #fff5d0;
+        box-shadow:
+        0 0 4px 2px rgba(255,235,170,.75),
+        0 0 9px 3px rgba(240,190,95,.45);
+    }
+}
+
+/* GATE OPENING */
+
+.opening .left-gate {
+    animation: swingLeft 2.6s cubic-bezier(.65,0,.25,1) 3.1s forwards;
+}
+
+.opening .right-gate {
+    animation: swingRight 2.6s cubic-bezier(.65,0,.25,1) 3.1s forwards;
+}
+
+@keyframes swingLeft {
+    to { transform: rotateY(-100deg); }
+}
+
+@keyframes swingRight {
+    to { transform: rotateY(100deg); }
+}
 
 /* TAP */
 
@@ -175,55 +325,8 @@ html, body {
 }
 
 @keyframes breathe {
-    0%, 100% { opacity: .5; }
-    50% { opacity: 1; }
-}
-
-/* SEQUENTIAL LED LIGHTING */
-
-.opening .led-dot {
-    animation: ledLight .55s ease forwards;
-    animation-delay: calc(var(--i) * .22s);
-}
-
-@keyframes ledLight {
-    0% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(.5);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-        background: #fff5d0;
-        box-shadow:
-            0 0 4px 2px rgba(255, 235, 170, .75),
-            0 0 9px 3px rgba(240, 190, 95, .45);
-    }
-}
-
-/* REAL HINGED GATE OPENING */
-
-.opening .left-gate {
-    animation: swingLeft 2.6s cubic-bezier(.65,0,.25,1)
-               3.1s forwards;
-}
-
-.opening .right-gate {
-    animation: swingRight 2.6s cubic-bezier(.65,0,.25,1)
-               3.1s forwards;
-}
-
-@keyframes swingLeft {
-    to {
-        transform: rotateY(-100deg);
-    }
-}
-
-@keyframes swingRight {
-    to {
-        transform: rotateY(100deg);
-    }
+    0%,100% {opacity:.5}
+    50% {opacity:1}
 }
 
 .opening .tap-area {
@@ -233,14 +336,388 @@ html, body {
 .opening .tap-text {
     opacity: 0;
 }
+
+/* =================================
+   LEFT SIDE - 6 PAGE DOTS
+================================= */
+
+.page-dots {
+    position: fixed;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 100;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .8s ease;
+}
+
+body.opened .page-dots {
+    opacity: 1;
+}
+
+.dots-pill {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 13px;
+    padding: 15px 10px;
+    border-radius: 30px;
+    background: rgba(247,235,211,.30);
+    border: 1px solid rgba(218,180,115,.65);
+    box-shadow: 0 4px 20px rgba(35,20,10,.16);
+    backdrop-filter: blur(9px);
+    -webkit-backdrop-filter: blur(9px);
+}
+
+.page-dot {
+    width: 7px;
+    height: 7px;
+    display: block;
+    border-radius: 50%;
+    background: rgba(195,151,83,.65);
+    box-shadow: 0 0 4px rgba(225,190,126,.35);
+    transition: all .35s ease;
+}
+
+.page-dot.active {
+    width: 10px;
+    height: 10px;
+    background: #f5d493;
+    box-shadow:
+        0 0 0 3px rgba(232,198,137,.23),
+        0 0 12px 4px rgba(224,184,105,.65);
+}
+
+/* =================================
+   PAGE 2 - ROYAL UNROLLING SCROLL
+================================= */
+
+.scroll-section {
+    position: relative;
+    width: 100%;
+    height: 320vh;
+    min-height: 320vh;
+    overflow: visible;
+    background: #e9ddc6;
+}
+
+/* PAGE 2 BACKGROUND */
+
+.scroll-bg-sticky {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    margin-bottom: -100vh;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.scroll-bg-sticky img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+/* SCROLL AREA */
+
+.scroll-art {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* THE PARCHMENT */
+
+.parchment {
+    position: absolute;
+    top: 18vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(76vw, 500px);
+    height: 150px;
+    border-radius: 8px;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            90deg,
+            #bd9867 0%,
+            #f4e7cb 5%,
+            #fff9eb 17%,
+            #eee0c4 48%,
+            #fff9e9 83%,
+            #c5a06e 100%
+        );
+
+    border: 1px solid rgba(164,122,66,.65);
+
+    box-shadow:
+        0 12px 35px rgba(54,35,16,.28),
+        0 2px 8px rgba(255,255,255,.55) inset,
+        0 -3px 9px rgba(154,111,56,.22) inset;
+
+    will-change: height;
+}
+
+/* INNER PAPER */
+
+.paper-surface {
+    position: absolute;
+    inset: 17px 0;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(185,143,85,.35),
+            #f8edd8 12%,
+            #fffaf0 35%,
+            #f2e4ca 68%,
+            #fff9ed 88%,
+            rgba(182,139,79,.3)
+        );
+    border-top: 1px solid rgba(255,255,255,.75);
+    border-bottom: 1px solid rgba(178,137,79,.35);
+}
+
+/* SHINY FINISH */
+
+.paper-gloss {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    background:
+        linear-gradient(
+            108deg,
+            transparent 8%,
+            rgba(255,255,255,.32) 22%,
+            rgba(255,255,255,.65) 27%,
+            transparent 39%,
+            rgba(255,255,255,.16) 70%,
+            transparent 87%
+        );
+    opacity: .75;
+    animation: paperShine 6s ease-in-out infinite;
+}
+
+@keyframes paperShine {
+    0%,100% { opacity: .45; }
+    50% { opacity: .9; }
+}
+
+/* GOLDEN SCROLL ROLLS */
+
+.scroll-roll {
+    position: absolute;
+    left: -12px;
+    width: calc(100% + 24px);
+    height: 34px;
+    z-index: 8;
+    border-radius: 50% / 42%;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fff5df 0%,
+            #d9bd8c 18%,
+            #fff6df 36%,
+            #c29a63 68%,
+            #f9e9c8 100%
+        );
+
+    border: 1px solid rgba(157,113,57,.8);
+
+    box-shadow:
+        0 3px 8px rgba(70,44,18,.27),
+        0 2px 5px rgba(255,255,255,.8) inset;
+}
+
+.scroll-roll::before,
+.scroll-roll::after {
+    content: "";
+    position: absolute;
+    top: 5px;
+    width: 14px;
+    height: 22px;
+    border-radius: 50%;
+    background: linear-gradient(
+        90deg,
+        #b78d56,
+        #fff2d3,
+        #d1aa70
+    );
+    border: 1px solid rgba(157,113,57,.55);
+}
+
+.scroll-roll::before {
+    left: 3px;
+}
+
+.scroll-roll::after {
+    right: 3px;
+}
+
+.top-roll {
+    top: -1px;
+}
+
+.bottom-roll {
+    bottom: -1px;
+}
+
+/* DIAMOND DETAILS ON BOTH SIDES */
+
+.gem-column {
+    position: absolute;
+    top: 43px;
+    bottom: 43px;
+    width: 15px;
+    z-index: 6;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.gem-left {
+    left: 12px;
+}
+
+.gem-right {
+    right: 12px;
+}
+
+.scroll-gem {
+    width: 9px;
+    height: 9px;
+    flex-shrink: 0;
+    transform: rotate(45deg);
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff 0%,
+            #e8d5af 28%,
+            #fffdf5 52%,
+            #c4a16a 100%
+        );
+
+    border: 1px solid rgba(173,135,79,.75);
+
+    box-shadow:
+        0 0 5px rgba(255,248,221,.9),
+        0 0 9px rgba(208,171,106,.4);
+}
+
+/* SCROLL INSTRUCTION */
+
+.scroll-hint {
+    position: absolute;
+    top: calc(18vh + 195px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    text-align: center;
+
+    color: #8c683b;
+    font-family: 'Cinzel', serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+
+    text-shadow: 0 1px 5px rgba(255,255,255,.9);
+
+    animation: hintBreathe 2s ease-in-out infinite;
+    transition: opacity .5s ease;
+}
+
+@keyframes hintBreathe {
+    0%,100% {
+        opacity: .55;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* MOBILE ADJUSTMENTS */
+
+@media (max-width: 480px) {
+
+    .page-dots {
+        left: 7px;
+    }
+
+    .dots-pill {
+        padding: 13px 8px;
+        gap: 12px;
+    }
+
+    .parchment {
+        width: 78vw;
+    }
+
+    .scroll-hint {
+        font-size: 10px;
+        letter-spacing: 3px;
+    }
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="scene" id="scene">
+<!-- =================================
+     PAGE 1
+================================= -->
+
+<section class="scene" id="page1">
 
     <img src="background.JPG" class="background" alt="">
+
+    <!-- INVITATION TEXT -->
+
+    <div class="intro">
+
+        <div class="intro-content">
+
+            <div class="intro-line bismillah line-1">
+                بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+            </div>
+
+            <div class="intro-line verse line-2">
+                And We created you in pairs
+            </div>
+
+            <div class="intro-line families line-3">
+                THE FAMILIES OF
+            </div>
+
+            <div class="intro-line name line-4">
+                Ayzal Fatemah
+            </div>
+
+            <div class="intro-line ampersand line-5">
+                &
+            </div>
+
+            <div class="intro-line name line-6">
+                Zubair Ali
+            </div>
+
+            <div class="intro-line request line-7">
+                request the honour of your presence
+                at their nikkah
+            </div>
+
+        </div>
+
+    </div>
 
     <!-- LEFT GATE -->
 
@@ -253,6 +730,7 @@ html, body {
 
         <div class="led-ring left-led">
             <div class="led-orbit">
+
                 <span class="led-dot" style="--i:0"></span>
                 <span class="led-dot" style="--i:1"></span>
                 <span class="led-dot" style="--i:2"></span>
@@ -265,6 +743,7 @@ html, body {
                 <span class="led-dot" style="--i:9"></span>
                 <span class="led-dot" style="--i:10"></span>
                 <span class="led-dot" style="--i:11"></span>
+
             </div>
         </div>
 
@@ -281,6 +760,7 @@ html, body {
 
         <div class="led-ring right-led">
             <div class="led-orbit">
+
                 <span class="led-dot" style="--i:0"></span>
                 <span class="led-dot" style="--i:1"></span>
                 <span class="led-dot" style="--i:2"></span>
@@ -293,19 +773,113 @@ html, body {
                 <span class="led-dot" style="--i:9"></span>
                 <span class="led-dot" style="--i:10"></span>
                 <span class="led-dot" style="--i:11"></span>
+
             </div>
         </div>
 
     </div>
 
+    <!-- TAP TO OPEN -->
+
     <div class="tap-area" id="tapArea">
         <div class="tap-text">TAP TO OPEN</div>
     </div>
 
+</section>
+
+
+<!-- =================================
+     PAGE 2 - LONG ROYAL SCROLL
+================================= -->
+
+<section class="scroll-section" id="page2">
+
+    <!-- PAGE 2 BACKGROUND -->
+
+    <div class="scroll-bg-sticky">
+        <img src="bg.JPG" alt="">
+    </div>
+
+    <div class="scroll-art">
+
+        <!-- CLOSED / UNROLLING PARCHMENT -->
+
+        <div class="parchment" id="parchment">
+
+            <div class="paper-surface"></div>
+
+            <div class="paper-gloss"></div>
+
+            <!-- LEFT DIAMONDS -->
+
+            <div class="gem-column gem-left">
+                <span class="scroll-gem"></span>
+                <span class="scroll-gem"></span>
+                <span class="scroll-gem"></span>
+                <span class="scroll-gem"></span>
+                <span class="scroll-gem"></span>
+                <span class="scroll-gem"></span>
+            </div>
+
+            <!-- RIGHT DIAMONDS -->
+
+            <div class="gem-column gem-right">
+                <span class="scroll-gem"></span>
+                <span class="scroll-gem"></span>
+                <span class="scroll-gem"></span>
+                <span class="scroll-gem"></span>
+                <span class="scroll-gem"></span>
+                <span class="scroll-gem"></span>
+            </div>
+
+            <!-- TOP ROLL -->
+
+            <div class="scroll-roll top-roll"></div>
+
+            <!-- BOTTOM ROLL -->
+
+            <div class="scroll-roll bottom-roll"></div>
+
+        </div>
+
+        <!-- INSTRUCTION -->
+
+        <div class="scroll-hint" id="scrollHint">
+            SCROLL TO UNROLL
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =================================
+     LEFT PAGE INDICATOR
+================================= -->
+
+<div class="page-dots" aria-label="Page indicator">
+
+    <div class="dots-pill">
+
+        <span class="page-dot active" data-page="1"></span>
+        <span class="page-dot" data-page="2"></span>
+        <span class="page-dot" data-page="3"></span>
+        <span class="page-dot" data-page="4"></span>
+        <span class="page-dot" data-page="5"></span>
+        <span class="page-dot" data-page="6"></span>
+
+    </div>
+
 </div>
 
+
 <script>
-const scene = document.getElementById("scene");
+
+/* =================================
+   GATE OPENING
+================================= */
+
+const scene = document.getElementById("page1");
 const tapArea = document.getElementById("tapArea");
 
 let opened = false;
@@ -315,9 +889,111 @@ tapArea.addEventListener("click", function() {
     if (opened) return;
 
     opened = true;
+
     scene.classList.add("opening");
+    document.body.classList.add("opened");
 
 });
+
+
+/* =================================
+   SCROLL UNROLL ANIMATION
+================================= */
+
+const page2 = document.getElementById("page2");
+const parchment = document.getElementById("parchment");
+const scrollHint = document.getElementById("scrollHint");
+
+const dots = document.querySelectorAll(".page-dot");
+
+
+function updateScrollDesign() {
+
+    const sectionTop =
+        page2.getBoundingClientRect().top + window.scrollY;
+
+    const availableScroll =
+        Math.max(1, page2.offsetHeight - window.innerHeight);
+
+    let progress =
+        (window.scrollY - sectionTop) / availableScroll;
+
+    progress = Math.max(0, Math.min(1, progress));
+
+
+    /* CLOSED SIZE */
+
+    const closedHeight =
+        Math.max(145, window.innerHeight * 0.17);
+
+
+    /* FULL LONG SCROLL SIZE */
+
+    const fullHeight =
+        Math.max(
+            1200,
+            page2.offsetHeight - window.innerHeight * 0.18
+        );
+
+
+    /* GRADUAL UNROLLING */
+
+    const currentHeight =
+        closedHeight + (fullHeight - closedHeight) * progress;
+
+    parchment.style.height = currentHeight + "px";
+
+
+    /* HIDE INSTRUCTION WHILE UNROLLING */
+
+    if (progress > 0.025) {
+        scrollHint.style.opacity = "0";
+    } else {
+        scrollHint.style.opacity = "1";
+    }
+
+
+    /* ACTIVE PAGE DOT */
+
+    let activePage = 0;
+
+    if (window.scrollY >= sectionTop - 2) {
+        activePage = 1;
+    }
+
+    dots.forEach(function(dot, index) {
+
+        dot.classList.toggle(
+            "active",
+            index === activePage
+        );
+
+    });
+
+}
+
+
+/* UPDATE WHEN GUEST SCROLLS */
+
+window.addEventListener(
+    "scroll",
+    updateScrollDesign,
+    { passive: true }
+);
+
+
+/* UPDATE ON SCREEN SIZE CHANGE */
+
+window.addEventListener(
+    "resize",
+    updateScrollDesign
+);
+
+
+/* INITIAL STATE */
+
+updateScrollDesign();
+
 </script>
 
 </body>
