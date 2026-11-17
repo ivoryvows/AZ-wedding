@@ -30,9 +30,7 @@ body.site-open {
     -webkit-overflow-scrolling: touch;
 }
 
-/* =================================
-   PAGE 1 - GATES
-================================= */
+/* PAGE 1 - GATES */
 
 .scene {
     position: relative;
@@ -82,17 +80,18 @@ body.site-open {
     opacity: 0;
     transform: translateY(18px);
     filter: blur(4px);
-    color: #bd9147;
-    text-shadow: 0 1px 5px rgba(255,245,225,.65);
+    color: #5A1725;
+    text-shadow: 0 1px 3px rgba(255,225,195,.65);
 }
 
 .bismillah {
     font-family: 'Amiri', serif;
     font-size: clamp(21px, 4.5vw, 32px);
     font-weight: 400;
-    color: #bd9147;
+    color: #68202E;
     direction: rtl;
     line-height: 1.7;
+    text-shadow: 0 1px 4px rgba(255,225,195,.7);
 }
 
 .verse {
@@ -100,14 +99,14 @@ body.site-open {
     font-size: clamp(16px, 3.5vw, 21px);
     font-style: italic;
     letter-spacing: .6px;
-    color: #bd9147;
+    color: #762D3A;
 }
 
 .families {
     font-family: 'Marcellus', serif;
     font-size: clamp(11px, 2.7vw, 15px);
     letter-spacing: 4px;
-    color: #bd9147;
+    color: #4F1421;
     margin-top: 5px;
 }
 
@@ -116,15 +115,15 @@ body.site-open {
     font-size: clamp(39px, 8.5vw, 65px);
     font-weight: 400;
     line-height: 1.12;
-    color: #bd9147;
-    text-shadow: 0 1px 3px rgba(255,245,225,.7);
+    color: #501321;
+    text-shadow: 0 1px 3px rgba(255,225,195,.75);
 }
 
 .ampersand {
     font-family: 'EB Garamond', serif;
     font-size: clamp(23px, 5vw, 34px);
     font-style: italic;
-    color: #bd9147;
+    color: #873D49;
 }
 
 .request {
@@ -132,7 +131,7 @@ body.site-open {
     font-size: clamp(17px, 3.8vw, 23px);
     line-height: 1.4;
     max-width: 450px;
-    color: #bd9147;
+    color: #682331;
     margin-top: 5px;
 }
 
@@ -339,9 +338,7 @@ body.site-open {
     pointer-events: none;
 }
 
-/* =================================
-   LEFT SIDE - PAGE DOTS
-================================= */
+/* PAGE DOTS */
 
 .page-dots {
     position: fixed;
@@ -392,7 +389,7 @@ body.site-open .page-dots {
 }
 
 /* =================================
-   PAGE 2 - CONNECTED THREE PART SCROLL
+   PAGE 2 - THREE PART SCROLL
 ================================= */
 
 .scroll-section {
@@ -401,8 +398,6 @@ body.site-open .page-dots {
     height: 280vh;
     background: #e9ddc6;
 }
-
-/* FIXED SCREEN */
 
 .scroll-stage {
     position: absolute;
@@ -416,15 +411,11 @@ body.site-open .page-dots {
     isolation: isolate;
 }
 
-/* PIN DURING REVEAL */
-
 .scroll-section.is-pinned .scroll-stage {
     position: fixed;
     top: 0;
     left: 0;
 }
-
-/* END OF REVEAL */
 
 .scroll-section.is-ended .scroll-stage {
     position: absolute;
@@ -432,8 +423,6 @@ body.site-open .page-dots {
     bottom: 0;
     left: 0;
 }
-
-/* BACKGROUND */
 
 .scroll-bg {
     position: absolute;
@@ -448,20 +437,22 @@ body.site-open .page-dots {
 
 .scroll-composition {
     --spread: 0px;
-    --join: 8px;
+
+    /* EXTRA CLOSED OVERLAP */
+    --join: clamp(28px, 10vw, 45px);
 
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
 
-    /* MESSAGE BOX SIZE UNCHANGED */
+    /* MESSAGE SIZE UNCHANGED */
     width: min(58vw, 330px);
 
     z-index: 2;
 }
 
-/* MIDDLE MESSAGE PAPER - UNCHANGED SIZE */
+/* MIDDLE MESSAGE - SAME SIZE */
 
 .scroll-middle {
     position: absolute;
@@ -485,18 +476,17 @@ body.site-open .page-dots {
     transform: translateY(-50%);
 }
 
-/* TOP ROLL - MADE BIGGER */
+/* TOP ROLL - MUCH BIGGER */
 
 .scroll-top {
     position: absolute;
-    left: -6%;
+    left: -20%;
     top: 50%;
     display: block;
-    width: 112%;
+    width: 140%;
     height: auto;
     z-index: 3;
 
-    /* OVERLAPS THE MIDDLE SLIGHTLY WHEN CLOSED */
     transform: translateY(
         calc(-100% + var(--join) - var(--spread))
     );
@@ -504,18 +494,17 @@ body.site-open .page-dots {
     will-change: transform;
 }
 
-/* BOTTOM ROLL - MADE BIGGER */
+/* BOTTOM ROLL - MUCH BIGGER */
 
 .scroll-bottom {
     position: absolute;
-    left: -6%;
+    left: -20%;
     top: 50%;
     display: block;
-    width: 112%;
+    width: 140%;
     height: auto;
     z-index: 3;
 
-    /* OVERLAPS THE MIDDLE SLIGHTLY WHEN CLOSED */
     transform: translateY(
         calc(var(--spread) - var(--join))
     );
@@ -588,15 +577,12 @@ body.site-open .page-dots {
         transform: translateY(6vh);
     }
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- =================================
-     PAGE 1
-================================= -->
+<!-- PAGE 1 -->
 
 <section class="scene" id="page1">
 
@@ -648,7 +634,6 @@ body.site-open .page-dots {
 
         <div class="led-ring left-led">
             <div class="led-orbit">
-
                 <span class="led-dot" style="--i:0"></span>
                 <span class="led-dot" style="--i:1"></span>
                 <span class="led-dot" style="--i:2"></span>
@@ -661,7 +646,6 @@ body.site-open .page-dots {
                 <span class="led-dot" style="--i:9"></span>
                 <span class="led-dot" style="--i:10"></span>
                 <span class="led-dot" style="--i:11"></span>
-
             </div>
         </div>
 
@@ -678,7 +662,6 @@ body.site-open .page-dots {
 
         <div class="led-ring right-led">
             <div class="led-orbit">
-
                 <span class="led-dot" style="--i:0"></span>
                 <span class="led-dot" style="--i:1"></span>
                 <span class="led-dot" style="--i:2"></span>
@@ -691,7 +674,6 @@ body.site-open .page-dots {
                 <span class="led-dot" style="--i:9"></span>
                 <span class="led-dot" style="--i:10"></span>
                 <span class="led-dot" style="--i:11"></span>
-
             </div>
         </div>
 
@@ -703,9 +685,7 @@ body.site-open .page-dots {
 
 </section>
 
-<!-- =================================
-     PAGE 2
-================================= -->
+<!-- PAGE 2 -->
 
 <section class="scroll-section" id="page2">
 
@@ -719,17 +699,9 @@ body.site-open .page-dots {
                 <img src="msg.PNG" alt="">
             </div>
 
-            <img
-                src="top.PNG"
-                class="scroll-top"
-                alt=""
-            >
+            <img src="top.PNG" class="scroll-top" alt="">
 
-            <img
-                src="bottom.PNG"
-                class="scroll-bottom"
-                alt=""
-            >
+            <img src="bottom.PNG" class="scroll-bottom" alt="">
 
         </div>
 
@@ -741,30 +713,22 @@ body.site-open .page-dots {
 
 </section>
 
-<!-- =================================
-     LEFT PAGE INDICATOR
-================================= -->
+<!-- LEFT PAGE INDICATOR -->
 
 <div class="page-dots">
-
     <div class="dots-pill">
-
         <span class="page-dot active" data-page="1"></span>
         <span class="page-dot" data-page="2"></span>
         <span class="page-dot" data-page="3"></span>
         <span class="page-dot" data-page="4"></span>
         <span class="page-dot" data-page="5"></span>
         <span class="page-dot" data-page="6"></span>
-
     </div>
-
 </div>
 
 <script>
 
-/* =================================
-   GATE OPENING
-================================= */
+/* GATE OPENING */
 
 const scene = document.getElementById("page1");
 const tapArea = document.getElementById("tapArea");
@@ -790,9 +754,7 @@ tapArea.addEventListener("click", function() {
 
 });
 
-/* =================================
-   PAGE 2 - CONNECTED SCROLL REVEAL
-================================= */
+/* PAGE 2 - CONNECTED SCROLL REVEAL */
 
 const page2 = document.getElementById("page2");
 
@@ -849,13 +811,6 @@ function updateScrollDesign() {
     progress =
         Math.max(0, Math.min(1, progress));
 
-    /*
-       MESSAGE IMAGE RATIO:
-       632 x 1242
-
-       Message box size stays unchanged.
-    */
-
     const compositionWidth =
         scrollComposition.clientWidth;
 
@@ -873,12 +828,8 @@ function updateScrollDesign() {
         currentSpread + "px"
     );
 
-    /* HIDE INSTRUCTION AFTER SCROLL STARTS */
-
     scrollHint.style.opacity =
         progress > 0.015 ? "0" : "1";
-
-    /* PAGE DOTS */
 
     const activePage =
         currentY >= start - 10 ? 1 : 0;
